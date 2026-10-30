@@ -9,6 +9,19 @@ const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
 const weeklyCalendar = document.getElementById("weeklyCalendar");
+const prevWeek = document.getElementById("prevWeek");
+const nextWeek = document.getElementById("nextWeek");
+const weekLabel = document.getElementById("weekLabel");
+
+let currentWeekStart = new Date();
+currentWeekStart.setHours(0, 0, 0, 0);
+
+const todayDay = currentWeekStart.getDay();
+
+currentWeekStart.setDate(
+  currentWeekStart.getDate() -
+  (todayDay === 0 ? 6 : todayDay - 1)
+);
 // Load saved tasks
 let tasks = [];
 
@@ -118,17 +131,28 @@ renderWeeklyCalendar();
 }
 
 // Render weekly study calendar
+
 function renderWeeklyCalendar() {
   if (!weeklyCalendar) return;
 
+  const monday = new Date(currentWeekStart);
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+
+  weekLabel.textContent =
+    monday.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric"
+    }) +
+    " - " +
+    sunday.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-
-  // Find Monday of current week
-  const monday = new Date(today);
-  const day = monday.getDay();
-
-  monday.setDate(monday.getDate() - (day === 0 ? 6 : day - 1));
 
   const days = [];
 
@@ -136,13 +160,11 @@ function renderWeeklyCalendar() {
     const date = new Date(monday);
     date.setDate(monday.getDate() + i);
 
-    // Local date format: YYYY-MM-DD
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const dayNumber = String(date.getDate()).padStart(2, "0");
-    const dateKey = `${year}-${month}-${dayNumber}`;
+    const dateKey = formatDate(date);
 
-    const dayTasks = tasks.filter(task => task.dueDate === dateKey);
+    const dayTasks = tasks.filter(
+      task => task.dueDate === dateKey
+    );
 
     const taskHTML = dayTasks.length > 0
       ? dayTasks.map(task => `
@@ -154,11 +176,17 @@ function renderWeeklyCalendar() {
 
     days.push(`
       <div class="calendar-day ${dateKey === formatDate(today) ? "today" : ""}">
-        <h3>${date.toLocaleDateString("en-US", { weekday: "short" })}</h3>
-        <p class="calendar-date">${date.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric"
-        })}</p>
+        <h3>${date.toLocaleDateString("en-US", {
+          weekday: "long"
+        })}</h3>
+
+        <p class="calendar-date">
+          ${date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric"
+          })}
+        </p>
+
         ${taskHTML}
       </div>
     `);
@@ -166,6 +194,25 @@ function renderWeeklyCalendar() {
 
   weeklyCalendar.innerHTML = days.join("");
 }
+
+// Previous week button
+prevWeek.addEventListener("click", function () {
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() - 7
+  );
+
+  renderWeeklyCalendar();
+});
+
+// Next week button
+nextWeek.addEventListener("click", function () {
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() + 7
+  );
+
+  renderWeeklyCalendar();
+});
+
 
 // Format date using local time
 function formatDate(date) {
