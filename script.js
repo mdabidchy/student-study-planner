@@ -70,7 +70,9 @@ function updateStats() {
 // Display tasks
 function renderTasks() {
   const selectedFilter = filter.value;
-  const searchValue = searchTask.value.toLowerCase().trim();
+  const searchValue = searchTask
+  ? searchTask.value.toLowerCase().trim()
+  : "";
 
   const visibleTasks = tasks.filter(task => {
     const matchesFilter =
@@ -170,7 +172,9 @@ taskList.addEventListener("click", function (event) {
 filter.addEventListener("change", renderTasks);
 
 // Search tasks
-searchTask.addEventListener("input", renderTasks);
+if (searchTask) {
+  searchTask.addEventListener("input", renderTasks);
+}
 
 // Load tasks when page opens
 renderTasks();
