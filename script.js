@@ -8,7 +8,7 @@ const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
-
+const weeklyCalendar = document.getElementById("weeklyCalendar");
 // Load saved tasks
 let tasks = [];
 
@@ -112,8 +112,68 @@ function renderTasks() {
     </article>
   `).join("");
 
-  emptyMessage.hidden = visibleTasks.length > 0;
-  updateStats();
+ emptyMessage.hidden = visibleTasks.length > 0;
+updateStats();
+renderWeeklyCalendar();
+}
+
+// Render weekly study calendar
+function renderWeeklyCalendar() {
+  if (!weeklyCalendar) return;
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Find Monday of current week
+  const monday = new Date(today);
+  const day = monday.getDay();
+
+  monday.setDate(monday.getDate() - (day === 0 ? 6 : day - 1));
+
+  const days = [];
+
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
+
+    // Local date format: YYYY-MM-DD
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const dayNumber = String(date.getDate()).padStart(2, "0");
+    const dateKey = `${year}-${month}-${dayNumber}`;
+
+    const dayTasks = tasks.filter(task => task.dueDate === dateKey);
+
+    const taskHTML = dayTasks.length > 0
+      ? dayTasks.map(task => `
+          <div class="calendar-task ${task.completed ? "done" : ""}">
+            ${escapeHTML(task.title)}
+          </div>
+        `).join("")
+      : `<p class="no-calendar-task">No tasks</p>`;
+
+    days.push(`
+      <div class="calendar-day ${dateKey === formatDate(today) ? "today" : ""}">
+        <h3>${date.toLocaleDateString("en-US", { weekday: "short" })}</h3>
+        <p class="calendar-date">${date.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric"
+        })}</p>
+        ${taskHTML}
+      </div>
+    `);
+  }
+
+  weeklyCalendar.innerHTML = days.join("");
+}
+
+// Format date using local time
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 // Add new task
