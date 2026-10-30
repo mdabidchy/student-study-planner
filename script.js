@@ -47,6 +47,26 @@ function updateStats() {
   document.getElementById("completedTasks").textContent = completed;
   document.getElementById("pendingTasks").textContent = pending;
 
+  const percentage = tasks.length === 0
+    ? 0
+    : Math.round((completed / tasks.length) * 100);
+
+  document.getElementById("progressBar").style.width =
+    percentage + "%";
+
+  document.getElementById("progressText").textContent =
+    percentage + "%";
+
+  const message = percentage === 100 && tasks.length > 0
+    ? "Excellent! All tasks completed!"
+    : percentage >= 50
+    ? "Great work! Keep going!"
+    : "Keep studying and reach your goal!";
+
+  document.getElementById("progressMessage").textContent =
+    message;
+}
+
   // Calculate study progress
   const percentage = tasks.length === 0
     ? 0
