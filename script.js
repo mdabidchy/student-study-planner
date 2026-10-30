@@ -238,5 +238,9 @@ if (searchTask) {
 
 // Load tasks when page opens
 renderTasks();
+// Test weekly calendar
+renderWeeklyCalendar();
+
+console.log("Weekly Calendar:", weeklyCalendar);
 
 
