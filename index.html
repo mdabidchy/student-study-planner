@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Study Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header class="header">
+        <div>
+            <h1>Study Planner</h1>
+            <p>Plan your study. Reach your goals.</p>
+        </div>
+        <span class="tag">My Student Dashboard</span>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <div class="stat-card">
+                <p>Total Tasks</p>
+                <h2 id="totalTasks">0</h2>
+            </div>
+            <div class="stat-card">
+                <p>Completed</p>
+                <h2 id="completedTasks">0</h2>
+            </div>
+            <div class="stat-card">
+                <p>Pending</p>
+                <h2 id="pendingTasks">0</h2>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Add a Study Task</h2>
+
+            <form id="taskForm">
+                <label for="taskTitle">Task name</label>
+                <input type="text" id="taskTitle" placeholder="e.g. Practice JavaScript" required>
+
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="e.g. Web Development" required>
+
+                <div class="form-row">
+                    <div>
+                        <label for="dueDate">Due date</label>
+                        <input type="date" id="dueDate" required>
+                    </div>
+
+                    <div>
+                        <label for="priority">Priority</label>
+                        <select id="priority">
+                            <option value="High">High</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit">+ Add Task</button>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="task-heading">
+                <h2>My Tasks</h2>
+                <select id="filter">
+                    <option value="All">All Tasks</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+            <p id="emptyMessage" class="empty-message">
+                No tasks yet. Add your first study task!
+            </p>
+        </section>
+
+        <footer>
+            <p>Built by [Your Name] | Student Study Planner Project</p>
+        </footer>
+    </main>
+</body>
+
+</html>
