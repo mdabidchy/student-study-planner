@@ -272,3 +272,21 @@ footer {
   font-size: 13px;
   margin-bottom: 0;
 }
+
+.search-box {
+  margin-bottom: 16px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+}
+
+.search-box input:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #2563eb;
+}
