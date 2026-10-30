@@ -7,6 +7,7 @@ const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
+const searchTask = document.getElementById("searchTask");
 
 // Save করা task browser থেকে load করা
 let tasks = [];
@@ -93,19 +94,23 @@ function updateStats() {
 
 // Task screen-এ দেখানো
 function renderTasks() {
-  const selectedFilter = filter.value;
+ 
+const selectedFilter = filter.value;
+const searchValue = searchTask.value.toLowerCase().trim();
 
-  const visibleTasks = tasks.filter(task => {
-    if (selectedFilter === "Completed") {
-      return task.completed;
-    }
+const visibleTasks = tasks.filter(task => {
+  const matchesFilter =
+    selectedFilter === "All" ||
+    (selectedFilter === "Completed" && task.completed) ||
+    (selectedFilter === "Pending" && !task.completed);
 
-    if (selectedFilter === "Pending") {
-      return !task.completed;
-    }
+  const matchesSearch =
+    task.title.toLowerCase().includes(searchValue) ||
+    task.subject.toLowerCase().includes(searchValue);
 
-    return true;
-  });
+  return matchesFilter && matchesSearch;
+});
+
 
   taskList.innerHTML = visibleTasks.map(task => `
     <article class="task-item ${task.completed ? "done" : ""}">
@@ -193,3 +198,6 @@ filter.addEventListener("change", renderTasks);
 
 // Page খুললেই আগের task দেখানো
 renderTasks();
+
+searchTask.addEventListener("input", renderTasks);
+
