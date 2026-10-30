@@ -1,4 +1,4 @@
-
+const searchTask = document.getElementById("searchTask");
 const taskForm = document.getElementById("taskForm");
 const taskTitle = document.getElementById("taskTitle");
 const subject = document.getElementById("subject");
@@ -7,7 +7,7 @@ const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
-const searchTask = document.getElementById("searchTask");
+
 
 // Save করা task browser থেকে load করা
 let tasks = [];
