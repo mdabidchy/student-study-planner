@@ -1,3 +1,4 @@
+
 const searchTask = document.getElementById("searchTask");
 const taskForm = document.getElementById("taskForm");
 const taskTitle = document.getElementById("taskTitle");
@@ -8,8 +9,7 @@ const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
 
-
-// Save করা task browser থেকে load করা
+// Load saved tasks
 let tasks = [];
 
 try {
@@ -18,7 +18,7 @@ try {
   tasks = [];
 }
 
-// User-এর লেখা HTML হিসেবে execute হওয়া ঠেকায়
+// Prevent unsafe HTML input
 function escapeHTML(value) {
   return String(value).replace(/[&<>"']/g, function (char) {
     const entities = {
@@ -33,13 +33,12 @@ function escapeHTML(value) {
   });
 }
 
-// Task browser-এর localStorage-এ save করা
+// Save tasks
 function saveTasks() {
   localStorage.setItem("studyTasks", JSON.stringify(tasks));
 }
 
-// Dashboard-এর সংখ্যা update করা
-
+// Update dashboard and progress bar
 function updateStats() {
   const completed = tasks.filter(task => task.completed).length;
   const pending = tasks.length - completed;
@@ -68,48 +67,23 @@ function updateStats() {
     message;
 }
 
-  // Calculate study progress
-  const percentage = tasks.length === 0
-    ? 0
-    : Math.round((completed / tasks.length) * 100);
-
-  // Update progress bar
-  document.getElementById("progressBar").style.width =
-    percentage + "%";
-
-  document.getElementById("progressText").textContent =
-    percentage + "%";
-
-  // Update progress message
-  const message = percentage === 100 && tasks.length > 0
-    ? "Excellent! All tasks completed!"
-    : percentage >= 50
-    ? "Great work! Keep going!"
-    : "Keep studying and reach your goal!";
-
-  document.getElementById("progressMessage").textContent = message;
-
-
-
-// Task screen-এ দেখানো
+// Display tasks
 function renderTasks() {
- 
-const selectedFilter = filter.value;
-const searchValue = searchTask.value.toLowerCase().trim();
+  const selectedFilter = filter.value;
+  const searchValue = searchTask.value.toLowerCase().trim();
 
-const visibleTasks = tasks.filter(task => {
-  const matchesFilter =
-    selectedFilter === "All" ||
-    (selectedFilter === "Completed" && task.completed) ||
-    (selectedFilter === "Pending" && !task.completed);
+  const visibleTasks = tasks.filter(task => {
+    const matchesFilter =
+      selectedFilter === "All" ||
+      (selectedFilter === "Completed" && task.completed) ||
+      (selectedFilter === "Pending" && !task.completed);
 
-  const matchesSearch =
-    task.title.toLowerCase().includes(searchValue) ||
-    task.subject.toLowerCase().includes(searchValue);
+    const matchesSearch =
+      task.title.toLowerCase().includes(searchValue) ||
+      task.subject.toLowerCase().includes(searchValue);
 
-  return matchesFilter && matchesSearch;
-});
-
+    return matchesFilter && matchesSearch;
+  });
 
   taskList.innerHTML = visibleTasks.map(task => `
     <article class="task-item ${task.completed ? "done" : ""}">
@@ -140,7 +114,7 @@ const visibleTasks = tasks.filter(task => {
   updateStats();
 }
 
-// Form submit হলে নতুন task তৈরি করা
+// Add new task
 taskForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -165,7 +139,7 @@ taskForm.addEventListener("submit", function (event) {
   priority.value = "Medium";
 });
 
-// Complete এবং Delete button-এর কাজ
+// Complete and delete tasks
 taskList.addEventListener("click", function (event) {
   const button = event.target.closest("button[data-action]");
 
@@ -192,11 +166,13 @@ taskList.addEventListener("click", function (event) {
   renderTasks();
 });
 
-// Filter পরিবর্তন হলে তালিকা update করা
+// Filter tasks
 filter.addEventListener("change", renderTasks);
 
-// Page খুললেই আগের task দেখানো
+// Search tasks
+searchTask.addEventListener("input", renderTasks);
+
+// Load tasks when page opens
 renderTasks();
 
-searchTask.addEventListener("input", renderTasks);
 
