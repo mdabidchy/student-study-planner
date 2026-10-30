@@ -87,9 +87,8 @@ function updateStats() {
     ? "Great work! Keep going!"
     : "Keep studying and reach your goal!";
 
-  document.getElementById("progressMessage").textContent =
-    message;
-}
+  document.getElementById("progressMessage").textContent = message;
+
 
 
 // Task screen-এ দেখানো
