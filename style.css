@@ -291,6 +291,7 @@ footer {
   border-color: #2563eb;
 }
 
+
 .calendar-subtitle {
   color: #64748b;
   font-size: 14px;
@@ -301,15 +302,18 @@ footer {
 .weekly-calendar {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
 }
 
 .calendar-day {
+  min-width: 0;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 9px;
-  padding: 12px 8px;
+  padding: 12px 6px;
   min-height: 125px;
+  overflow-wrap: anywhere;
 }
 
 .calendar-day.today {
@@ -332,7 +336,7 @@ footer {
 .calendar-task {
   background: #dbeafe;
   color: #1e40af;
-  padding: 7px;
+  padding: 7px 4px;
   margin-top: 7px;
   border-radius: 6px;
   font-size: 11px;
