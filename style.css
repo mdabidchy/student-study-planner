@@ -887,3 +887,16 @@ body.dark-mode .theme-toggle {
     background: #ffffff;
     color: #000000;
 }
+.theme-toggle {
+    display: inline-block;
+    visibility: visible;
+    opacity: 1;
+    background: #ffffff;
+    color: #173b70;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+}
