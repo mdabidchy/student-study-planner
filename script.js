@@ -12,6 +12,7 @@ const weeklyCalendar = document.getElementById("weeklyCalendar");
 const prevWeek = document.getElementById("prevWeek");
 const nextWeek = document.getElementById("nextWeek");
 const weekLabel = document.getElementById("weekLabel");
+const todayWeek = document.getElementById("todayWeek");
 
 let currentWeekStart = new Date();
 currentWeekStart.setHours(0, 0, 0, 0);
@@ -208,6 +209,22 @@ prevWeek.addEventListener("click", function () {
 nextWeek.addEventListener("click", function () {
   currentWeekStart.setDate(
     currentWeekStart.getDate() + 7
+  );
+
+  renderWeeklyCalendar();
+});
+// Today button
+todayWeek.addEventListener("click", function () {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const day = today.getDay();
+
+  currentWeekStart = new Date(today);
+
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() -
+    (day === 0 ? 6 : day - 1)
   );
 
   renderWeeklyCalendar();
