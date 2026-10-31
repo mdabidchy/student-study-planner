@@ -8,13 +8,18 @@ const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const filter = document.getElementById("filter");
 const emptyMessage = document.getElementById("emptyMessage");
+
 const weeklyCalendar = document.getElementById("weeklyCalendar");
 const prevWeek = document.getElementById("prevWeek");
 const nextWeek = document.getElementById("nextWeek");
+const todayWeek = document.getElementById("todayWeek");
 const weekLabel = document.getElementById("weekLabel");
+
 const weekViewBtn = document.getElementById("weekViewBtn");
 const monthViewBtn = document.getElementById("monthViewBtn");
-const todayWeek = document.getElementById("todayWeek");
+
+// Calendar settings
+let currentCalendarView = "week";
 
 let currentWeekStart = new Date();
 currentWeekStart.setHours(0, 0, 0, 0);
@@ -25,17 +30,17 @@ currentWeekStart.setDate(
   currentWeekStart.getDate() -
   (todayDay === 0 ? 6 : todayDay - 1)
 );
-// Monthly calendar settings
-let currentCalendarView = "week";
 
 let currentMonthStart = new Date();
 currentMonthStart.setDate(1);
 currentMonthStart.setHours(0, 0, 0, 0);
+
 // Load saved tasks
 let tasks = [];
 
 try {
   tasks = JSON.parse(localStorage.getItem("studyTasks")) || [];
+  if (!Array.isArray(tasks)) tasks = [];
 } catch {
   tasks = [];
 }
@@ -53,6 +58,15 @@ function escapeHTML(value) {
 
     return entities[char];
   });
+}
+
+// Format date using local time
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }
 
 // Save tasks
@@ -92,9 +106,10 @@ function updateStats() {
 // Display tasks
 function renderTasks() {
   const selectedFilter = filter.value;
+
   const searchValue = searchTask
-  ? searchTask.value.toLowerCase().trim()
-  : "";
+    ? searchTask.value.toLowerCase().trim()
+    : "";
 
   const visibleTasks = tasks.filter(task => {
     const matchesFilter =
@@ -103,8 +118,8 @@ function renderTasks() {
       (selectedFilter === "Pending" && !task.completed);
 
     const matchesSearch =
-      task.title.toLowerCase().includes(searchValue) ||
-      task.subject.toLowerCase().includes(searchValue);
+      String(task.title || "").toLowerCase().includes(searchValue) ||
+      String(task.subject || "").toLowerCase().includes(searchValue);
 
     return matchesFilter && matchesSearch;
   });
@@ -113,6 +128,7 @@ function renderTasks() {
     <article class="task-item ${task.completed ? "done" : ""}">
       <div>
         <h3 class="task-title">${escapeHTML(task.title)}</h3>
+
         <p class="task-details">
           Subject: ${escapeHTML(task.subject)}<br>
           Due: ${escapeHTML(task.dueDate)}<br>
@@ -122,25 +138,25 @@ function renderTasks() {
       </div>
 
       <div class="task-actions">
-        <button data-action="toggle" data-id="${task.id}">
+        <button data-action="toggle" data-id="${escapeHTML(task.id)}">
           ${task.completed ? "Undo" : "Complete"}
         </button>
 
         <button class="delete-btn"
-          data-action="delete" data-id="${task.id}">
+          data-action="delete" data-id="${escapeHTML(task.id)}">
           Delete
         </button>
       </div>
     </article>
   `).join("");
 
- emptyMessage.hidden = visibleTasks.length > 0;
-updateStats();
-renderWeeklyCalendar();
+  emptyMessage.hidden = visibleTasks.length > 0;
+
+  updateStats();
+  renderCalendar();
 }
 
 // Render weekly study calendar
-
 function renderWeeklyCalendar() {
   if (!weeklyCalendar) return;
 
@@ -204,40 +220,6 @@ function renderWeeklyCalendar() {
   weeklyCalendar.innerHTML = days.join("");
 }
 
-// Previous week button
-prevWeek.addEventListener("click", function () {
-  currentWeekStart.setDate(
-    currentWeekStart.getDate() - 7
-  );
-
-  renderWeeklyCalendar();
-});
-
-// Next week button
-nextWeek.addEventListener("click", function () {
-  currentWeekStart.setDate(
-    currentWeekStart.getDate() + 7
-  );
-
-  renderWeeklyCalendar();
-});
-// Today button
-todayWeek.addEventListener("click", function () {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const day = today.getDay();
-
-  currentWeekStart = new Date(today);
-
-  currentWeekStart.setDate(
-    currentWeekStart.getDate() -
-    (day === 0 ? 6 : day - 1)
-  );
-
-  renderWeeklyCalendar();
-});
-
 // Render monthly study calendar
 function renderMonthlyCalendar() {
   if (!weeklyCalendar) return;
@@ -265,7 +247,6 @@ function renderMonthlyCalendar() {
     <div class="calendar-weekday">${day}</div>
   `);
 
-  // Find the first Monday in the calendar grid
   const offset = (firstDay.getDay() + 6) % 7;
 
   const gridStart = new Date(firstDay);
@@ -313,15 +294,91 @@ function renderMonthlyCalendar() {
   weeklyCalendar.innerHTML = days.join("");
 }
 
+// Switch between week and month calendar
+function renderCalendar() {
+  if (currentCalendarView === "month") {
+    renderMonthlyCalendar();
+  } else {
+    renderWeeklyCalendar();
+  }
 
-// Format date using local time
-function formatDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  if (weekViewBtn && monthViewBtn) {
+    weekViewBtn.classList.toggle(
+      "active",
+      currentCalendarView === "week"
+    );
 
-  return `${year}-${month}-${day}`;
+    monthViewBtn.classList.toggle(
+      "active",
+      currentCalendarView === "month"
+    );
+  }
 }
+
+// Previous button
+prevWeek.addEventListener("click", function () {
+  if (currentCalendarView === "week") {
+    currentWeekStart.setDate(
+      currentWeekStart.getDate() - 7
+    );
+  } else {
+    currentMonthStart.setMonth(
+      currentMonthStart.getMonth() - 1
+    );
+  }
+
+  renderCalendar();
+});
+
+// Next button
+nextWeek.addEventListener("click", function () {
+  if (currentCalendarView === "week") {
+    currentWeekStart.setDate(
+      currentWeekStart.getDate() + 7
+    );
+  } else {
+    currentMonthStart.setMonth(
+      currentMonthStart.getMonth() + 1
+    );
+  }
+
+  renderCalendar();
+});
+
+// Today button
+todayWeek.addEventListener("click", function () {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const day = today.getDay();
+
+  currentWeekStart = new Date(today);
+
+  currentWeekStart.setDate(
+    currentWeekStart.getDate() -
+    (day === 0 ? 6 : day - 1)
+  );
+
+  currentMonthStart = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1
+  );
+
+  renderCalendar();
+});
+
+// Week View button
+weekViewBtn.addEventListener("click", function () {
+  currentCalendarView = "week";
+  renderCalendar();
+});
+
+// Month View button
+monthViewBtn.addEventListener("click", function () {
+  currentCalendarView = "month";
+  renderCalendar();
+});
 
 // Add new task
 taskForm.addEventListener("submit", function (event) {
@@ -341,6 +398,7 @@ taskForm.addEventListener("submit", function (event) {
   }
 
   tasks.push(newTask);
+
   saveTasks();
   renderTasks();
 
@@ -360,7 +418,10 @@ taskList.addEventListener("click", function (event) {
   if (action === "toggle") {
     tasks = tasks.map(task => {
       if (task.id === taskId) {
-        return { ...task, completed: !task.completed };
+        return {
+          ...task,
+          completed: !task.completed
+        };
       }
 
       return task;
@@ -385,9 +446,4 @@ if (searchTask) {
 
 // Load tasks when page opens
 renderTasks();
-// Test weekly calendar
-renderWeeklyCalendar();
-
-console.log("Weekly Calendar:", weeklyCalendar);
-
 
