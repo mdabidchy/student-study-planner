@@ -836,3 +836,54 @@ footer {
         flex: 1;
     }
 }
+/* Pure Black Dark Mode */
+body.dark-mode {
+    background: #000000;
+    color: #ffffff;
+}
+
+body.dark-mode .header {
+    background: #000000;
+    border-bottom: 1px solid #333333;
+}
+
+body.dark-mode .stat-card,
+body.dark-mode .panel {
+    background: #111111;
+    color: #ffffff;
+    border: 1px solid #333333;
+}
+
+body.dark-mode .panel h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .task-item {
+    background: #1a1a1a;
+    color: #ffffff;
+    border: 1px solid #333333;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+body.dark-mode .calendar-day,
+body.dark-mode .month-day {
+    background: #111111;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+body.dark-mode .calendar-day:hover,
+body.dark-mode .month-day:hover {
+    background: #292929;
+}
+
+body.dark-mode .theme-toggle {
+    background: #ffffff;
+    color: #000000;
+}
