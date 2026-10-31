@@ -12,6 +12,8 @@ const weeklyCalendar = document.getElementById("weeklyCalendar");
 const prevWeek = document.getElementById("prevWeek");
 const nextWeek = document.getElementById("nextWeek");
 const weekLabel = document.getElementById("weekLabel");
+const weekViewBtn = document.getElementById("weekViewBtn");
+const monthViewBtn = document.getElementById("monthViewBtn");
 const todayWeek = document.getElementById("todayWeek");
 
 let currentWeekStart = new Date();
@@ -23,6 +25,12 @@ currentWeekStart.setDate(
   currentWeekStart.getDate() -
   (todayDay === 0 ? 6 : todayDay - 1)
 );
+// Monthly calendar settings
+let currentCalendarView = "week";
+
+let currentMonthStart = new Date();
+currentMonthStart.setDate(1);
+currentMonthStart.setHours(0, 0, 0, 0);
 // Load saved tasks
 let tasks = [];
 
