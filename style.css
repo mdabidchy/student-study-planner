@@ -900,3 +900,65 @@ body.dark-mode .theme-toggle {
     font-weight: 600;
     white-space: nowrap;
 }
+/* Professional Settings Panel */
+.settings-panel {
+    display: none;
+    max-width: 1150px;
+    margin: 20px auto;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.08);
+}
+
+.settings-panel h2 {
+    margin-bottom: 20px;
+    color: #173b70;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.setting-item label {
+    font-weight: 600;
+}
+
+.setting-item input[type="color"] {
+    width: 55px;
+    height: 40px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.settings-toggle {
+    background: #ffffff;
+    color: #173b70;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+body.dark-mode .settings-panel {
+    background: #111111;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+body.dark-mode .settings-panel h2 {
+    color: #ffffff;
+}
+
+@media (max-width: 600px) {
+    .settings-panel {
+        margin: 15px;
+        padding: 18px;
+    }
+}
