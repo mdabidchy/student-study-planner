@@ -238,6 +238,81 @@ todayWeek.addEventListener("click", function () {
   renderWeeklyCalendar();
 });
 
+// Render monthly study calendar
+function renderMonthlyCalendar() {
+  if (!weeklyCalendar) return;
+
+  const firstDay = new Date(currentMonthStart);
+  firstDay.setDate(1);
+
+  const month = firstDay.getMonth();
+  const year = firstDay.getFullYear();
+
+  weekLabel.textContent = firstDay.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric"
+  });
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const weekdays = [
+    "Mon", "Tue", "Wed", "Thu",
+    "Fri", "Sat", "Sun"
+  ];
+
+  const days = weekdays.map(day => `
+    <div class="calendar-weekday">${day}</div>
+  `);
+
+  // Find the first Monday in the calendar grid
+  const offset = (firstDay.getDay() + 6) % 7;
+
+  const gridStart = new Date(firstDay);
+  gridStart.setDate(1 - offset);
+
+  // Display 42 date boxes
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(gridStart);
+    date.setDate(gridStart.getDate() + i);
+
+    const dateKey = formatDate(date);
+
+    const dayTasks = tasks.filter(
+      task => task.dueDate === dateKey
+    );
+
+    const taskHTML = dayTasks.slice(0, 2).map(task => `
+      <div class="calendar-task ${task.completed ? "done" : ""}">
+        ${escapeHTML(task.title)}
+      </div>
+    `).join("");
+
+    const extraTasks = dayTasks.length > 2
+      ? `<p class="no-calendar-task">+${dayTasks.length - 2} more</p>`
+      : "";
+
+    const isCurrentMonth =
+      date.getMonth() === month &&
+      date.getFullYear() === year;
+
+    days.push(`
+      <div class="calendar-day month-day
+        ${isCurrentMonth ? "" : "other-month"}
+        ${dateKey === formatDate(today) ? "today" : ""}">
+
+        <h3>${date.getDate()}</h3>
+
+        ${taskHTML}
+        ${extraTasks}
+
+      </div>
+    `);
+  }
+
+  weeklyCalendar.innerHTML = days.join("");
+}
+
 
 // Format date using local time
 function formatDate(date) {
