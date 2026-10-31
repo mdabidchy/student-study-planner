@@ -846,4 +846,24 @@ if (searchTask) {
 ========================================== */
 
 renderTasks();
+// Dark Mode Toggle
+const themeToggle = document.getElementById("themeToggle");
+
+// Load saved theme
+if (localStorage.getItem("studyTheme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️ Light Mode";
+}
+
+themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("studyTheme", "dark");
+        themeToggle.textContent = "☀️ Light Mode";
+    } else {
+        localStorage.setItem("studyTheme", "light");
+        themeToggle.textContent = "🌙 Dark Mode";
+    }
+});
 
