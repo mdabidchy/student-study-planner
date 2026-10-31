@@ -25,6 +25,27 @@
 </button>
 
     </header>
+    <!-- Settings Panel -->
+<div class="settings-panel" id="settingsPanel">
+    <h2>⚙️ Settings</h2>
+
+    <div class="setting-item">
+        <label for="accentColor">Accent Color</label>
+        <input type="color" id="accentColor" value="#2563eb">
+    </div>
+
+    <div class="setting-item">
+        <button type="button" id="exportTasks">
+            📥 Export Tasks
+        </button>
+
+        <button type="button" id="importTasks">
+            📤 Import Tasks
+        </button>
+
+        <input type="file" id="importFile" accept=".json" hidden>
+    </div>
+</div>
 
     <main class="container">
         <section class="stats">
