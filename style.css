@@ -611,4 +611,155 @@ footer {
         padding: 9px 13px;
         font-size: 12px;
     }
+   
+/* ==============================
+   MODERN PROFESSIONAL DESIGN
+============================== */
+
+body {
+    background: linear-gradient(135deg, #f1f5ff, #f8fafc);
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(120deg, #142f5c, #2563eb);
+    padding: 35px 7%;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.12);
+}
+
+.header h1 {
+    font-size: 30px;
+    letter-spacing: -0.5px;
+}
+
+.header p {
+    font-size: 15px;
+}
+
+/* Main Container */
+.container {
+    max-width: 1150px;
+    margin: 35px auto;
+}
+
+/* Dashboard Cards */
+.stat-card,
+.panel {
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.09);
+}
+
+.stat-card {
+    padding: 25px;
+}
+
+/* Section Headings */
+.panel h2 {
+    color: #173b70;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+/* Input Fields */
+input,
+select {
+    border: 1px solid #dbe3ef;
+    border-radius: 10px;
+    padding: 13px;
+    transition: 0.2s ease;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+}
+
+/* Buttons */
+button {
+    border-radius: 9px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+/* Task Cards */
+.task-item {
+    border-radius: 11px;
+    background: #ffffff;
+    padding: 17px;
+    transition: 0.2s ease;
+}
+
+.task-item:hover {
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.07);
+}
+
+.task-item.done {
+    background: #f0fdf4;
+}
+
+/* Progress Bar */
+.progress-track {
+    height: 12px;
+    background: #e8edf5;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #2563eb, #16a34a);
+}
+
+/* Calendar */
+.calendar-day,
+.month-day {
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+.calendar-day:hover,
+.month-day:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+}
+
+/* Footer */
+footer {
+    padding: 25px 15px;
+    color: #64748b;
+}
+
+/* Mobile Improvements */
+@media (max-width: 600px) {
+    .header {
+        padding: 25px 6%;
+    }
+
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .container {
+        margin: 20px auto;
+    }
+
+    .panel,
+    .stat-card {
+        padding: 18px;
+    }
+}
+
 }
