@@ -51,24 +51,38 @@
   </p>
 </section>
 
-
 <section class="panel">
-  <h2>Weekly Study Calendar</h2>
+  <h2>Study Calendar</h2>
+
   <p class="calendar-subtitle">
-    Your study tasks for this week
+    Manage your weekly and monthly study tasks
   </p>
 
+  <div class="calendar-view-switch">
+    <button type="button" id="weekViewBtn">
+      Week View
+    </button>
 
-<div class="calendar-navigation">
-  <button type="button" id="prevWeek">← Previous</button>
-  <h3 id="weekLabel"></h3>
-  <button type="button" id="todayWeek">Today</button>
-  <button type="button" id="nextWeek">Next →</button>
-</div>
+    <button type="button" id="monthViewBtn">
+      Month View
+    </button>
+  </div>
 
+  <div class="calendar-navigation">
+    <button type="button" id="prevWeek">← Previous</button>
+
+    <h3 id="weekLabel"></h3>
+
+    <button type="button" id="todayWeek">Today</button>
+
+    <button type="button" id="nextWeek">Next →</button>
+  </div>
 
   <div id="weeklyCalendar" class="weekly-calendar"></div>
 </section>
+
+
+
 
         <section class="panel">
             <h2>Add a Study Task</h2>
