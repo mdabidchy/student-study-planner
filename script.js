@@ -376,6 +376,8 @@ weekViewBtn.addEventListener("click", function () {
 
 // Month View button
 monthViewBtn.addEventListener("click", function () {
+  alert("Month View Button Clicked!");
+
   currentCalendarView = "month";
   renderCalendar();
 });
