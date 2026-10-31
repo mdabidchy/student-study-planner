@@ -763,3 +763,76 @@ footer {
 }
 
 }
+
+/* Professional Task Badges */
+
+.task-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.priority-badge,
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* Priority Colors */
+
+.priority-badge.high {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.priority-badge.medium {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.priority-badge.low {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* Status Colors */
+
+.status-badge.completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status-badge.pending {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* Task Content */
+
+.task-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-item {
+    align-items: center;
+    gap: 18px;
+}
+
+.task-actions {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .task-actions {
+        width: 100%;
+    }
+
+    .task-actions button {
+        flex: 1;
+    }
+}
