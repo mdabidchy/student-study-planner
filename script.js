@@ -901,3 +901,21 @@ if (savedAccentColor) {
 
     accentColor.value = savedAccentColor;
 }
+// Export Tasks
+const exportTasksBtn = document.getElementById("exportTasks");
+
+exportTasksBtn.addEventListener("click", function () {
+    const backupData = JSON.stringify(tasks, null, 4);
+
+    const blob = new Blob([backupData], {
+        type: "application/json"
+    });
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.download = "study-planner-backup.json";
+
+    downloadLink.click();
+
+    URL.revokeObjectURL(downloadLink.href);
+});
