@@ -866,4 +866,38 @@ themeToggle.addEventListener("click", function () {
         themeToggle.textContent = "🌙 Dark Mode";
     }
 });
+// Settings Panel Toggle
+const settingsToggle = document.getElementById("settingsToggle");
+const settingsPanel = document.getElementById("settingsPanel");
 
+settingsToggle.addEventListener("click", function () {
+    if (settingsPanel.style.display === "block") {
+        settingsPanel.style.display = "none";
+    } else {
+        settingsPanel.style.display = "block";
+    }
+});
+
+// Accent Color Change
+const accentColor = document.getElementById("accentColor");
+
+accentColor.addEventListener("input", function () {
+    document.documentElement.style.setProperty(
+        "--accent-color",
+        accentColor.value
+    );
+
+    localStorage.setItem("accentColor", accentColor.value);
+});
+
+// Load Saved Accent Color
+const savedAccentColor = localStorage.getItem("accentColor");
+
+if (savedAccentColor) {
+    document.documentElement.style.setProperty(
+        "--accent-color",
+        savedAccentColor
+    );
+
+    accentColor.value = savedAccentColor;
+}
