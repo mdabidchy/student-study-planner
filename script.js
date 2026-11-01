@@ -919,3 +919,49 @@ exportTasksBtn.addEventListener("click", function () {
 
     URL.revokeObjectURL(downloadLink.href);
 });
+// Import Tasks
+const importTasksBtn = document.getElementById("importTasks");
+const importFile = document.getElementById("importFile");
+
+importTasksBtn.addEventListener("click", function () {
+    importFile.click();
+});
+
+importFile.addEventListener("change", function () {
+    const file = importFile.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        try {
+            const importedTasks = JSON.parse(event.target.result);
+
+            if (!Array.isArray(importedTasks)) {
+                alert("Invalid backup file!");
+                return;
+            }
+
+            const confirmImport = confirm(
+                "Importing will replace your current tasks. Continue?"
+            );
+
+            if (!confirmImport) return;
+
+            tasks.splice(0, tasks.length, ...importedTasks);
+
+            saveTasks();
+            renderTasks();
+
+            alert("Tasks imported successfully!");
+
+        } catch (error) {
+            alert("Could not import this file. Please select a valid backup.");
+        }
+
+        importFile.value = "";
+    };
+
+    reader.readAsText(file);
+});
