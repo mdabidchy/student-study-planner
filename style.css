@@ -962,3 +962,11 @@ body.dark-mode .settings-panel h2 {
         padding: 18px;
     }
 }
+:root {
+    --accent-color: #2563eb;
+}
+
+button,
+.progress-fill {
+    background-color: var(--accent-color);
+}
