@@ -48,20 +48,30 @@
 </div>
 
     <main class="container">
-        <section class="stats">
-            <div class="stat-card">
-                <p>Total Tasks</p>
-                <h2 id="totalTasks">0</h2>
-            </div>
-            <div class="stat-card">
-                <p>Completed</p>
-                <h2 id="completedTasks">0</h2>
-            </div>
-            <div class="stat-card">
-                <p>Pending</p>
-                <h2 id="pendingTasks">0</h2>
-            </div>
-        </section>
+        ```html
+<section class="stats">
+    <div class="stat-card">
+        <div class="stat-icon total-icon">📚</div>
+        <p>Total Tasks</p>
+        <h2 id="totalTasks">0</h2>
+        <span class="stat-description">All your study tasks</span>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon completed-icon">✅</div>
+        <p>Completed</p>
+        <h2 id="completedTasks">0</h2>
+        <span class="stat-description">Successfully finished</span>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon pending-icon">⏳</div>
+        <p>Pending</p>
+        <h2 id="pendingTasks">0</h2>
+        <span class="stat-description">Tasks waiting for you</span>
+    </div>
+</section>
+```
         
 <section class="panel progress-panel">
   <h2>Study Progress</h2>
