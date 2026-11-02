@@ -924,9 +924,12 @@ const importTasksBtn = document.getElementById("importTasks");
 const importFile = document.getElementById("importFile");
 
 importTasksBtn.addEventListener("click", function () {
-    importFile.click();
+    if (importFile) {
+        importFile.click();
+    } else {
+        alert("Import file input not found!");
+    }
 });
-
 importFile.addEventListener("change", function () {
     const file = importFile.files[0];
 
