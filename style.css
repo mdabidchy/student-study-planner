@@ -1027,3 +1027,50 @@ body.dark-mode .stat-card p {
         padding: 22px;
     }
 }
+/* Dashboard Stat Icons */
+
+.stat-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    border-radius: 15px;
+    margin-bottom: 18px;
+}
+
+.total-icon {
+    background: #dbeafe;
+}
+
+.completed-icon {
+    background: #dcfce7;
+}
+
+.pending-icon {
+    background: #ffedd5;
+}
+
+.stat-description {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+body.dark-mode .stat-description {
+    color: #aaaaaa;
+}
+
+body.dark-mode .total-icon {
+    background: #1e3a5f;
+}
+
+body.dark-mode .completed-icon {
+    background: #14532d;
+}
+
+body.dark-mode .pending-icon {
+    background: #7c2d12;
+}
