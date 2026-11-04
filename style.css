@@ -1183,3 +1183,95 @@ body.dark-mode #progressMessage {
         font-size: 22px;
     }
 }
+/* Professional Study Calendar */
+
+.calendar-subtitle {
+    color: #64748b;
+    font-size: 14px;
+    margin: 8px 0 22px;
+}
+
+.calendar-view-switch {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.calendar-view-switch button {
+    padding: 10px 18px;
+    border-radius: 9px;
+    background: #e8eef9;
+    color: #173b70;
+    border: 1px solid #dbe3ef;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.calendar-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+}
+
+.calendar-navigation h3 {
+    color: var(--accent-color, #2563eb);
+    font-size: 17px;
+}
+
+.calendar-navigation button {
+    padding: 9px 14px;
+    border-radius: 8px;
+}
+
+.calendar-day,
+.month-day {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover,
+.month-day:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .calendar-subtitle {
+    color: #aaaaaa;
+}
+
+body.dark-mode .calendar-view-switch button {
+    background: #222222;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+body.dark-mode .calendar-navigation h3 {
+    color: #60a5fa;
+}
+
+body.dark-mode .calendar-day,
+body.dark-mode .month-day {
+    background: #111111;
+    color: #ffffff;
+    border-color: #333333;
+}
+
+@media (max-width: 600px) {
+    .calendar-navigation {
+        justify-content: center;
+    }
+
+    .calendar-navigation h3 {
+        width: 100%;
+        text-align: center;
+        order: -1;
+    }
+
+    .calendar-view-switch button {
+        flex: 1;
+    }
+}
