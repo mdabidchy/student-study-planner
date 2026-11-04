@@ -1106,3 +1106,16 @@ body.dark-mode .completed-icon {
 body.dark-mode .pending-icon {
     background: #7c2d12;
 }
+/* Dashboard Statistics Number Colors */
+
+#totalTasks {
+    color: #3b82f6;
+}
+
+#completedTasks {
+    color: #22c55e;
+}
+
+#pendingTasks {
+    color: #f97316;
+}
