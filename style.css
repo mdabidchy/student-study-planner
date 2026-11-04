@@ -18,23 +18,55 @@ body {
    HEADER
 ============================== */
 
+/* Professional Header Design */
+
 .header {
-    background: #173b70;
+    background: linear-gradient(120deg, #142f5c, #2563eb);
     color: white;
-    padding: 28px 7%;
+    padding: 30px 7%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    gap: 18px;
+    flex-wrap: wrap;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.12);
 }
 
 .header h1 {
     margin: 0 0 8px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
 }
 
 .header p {
     margin: 0;
     color: #dbeafe;
+    font-size: 15px;
+}
+
+.header .tag {
+    margin-left: auto;
+}
+
+.header .theme-toggle,
+.header .settings-toggle {
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .header {
+        padding: 24px 6%;
+        justify-content: flex-start;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .header .tag {
+        margin-left: 0;
+    }
 }
 
 .tag {
