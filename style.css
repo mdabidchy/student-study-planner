@@ -1275,3 +1275,68 @@ body.dark-mode .month-day {
         flex: 1;
     }
 }
+/* Calendar Today Highlight */
+
+.calendar-day.today {
+    border: 2px solid var(--accent-color, #2563eb);
+    background: #eff6ff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.calendar-day.today h3 {
+    color: var(--accent-color, #2563eb);
+    font-weight: 800;
+}
+
+/* Calendar Task Indicator */
+
+.calendar-task {
+    position: relative;
+    padding: 7px 9px;
+    margin-top: 7px;
+    border-radius: 7px;
+    background: #dbeafe;
+    color: #1e40af;
+    font-size: 12px;
+    font-weight: 600;
+    border-left: 3px solid var(--accent-color, #2563eb);
+    overflow-wrap: anywhere;
+}
+
+.calendar-task.done {
+    background: #dcfce7;
+    color: #166534;
+    border-left-color: #22c55e;
+    text-decoration: line-through;
+}
+
+.no-calendar-task {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 10px;
+}
+
+/* Dark Mode */
+
+body.dark-mode .calendar-day.today {
+    background: #172554;
+    border-color: #60a5fa;
+}
+
+body.dark-mode .calendar-day.today h3 {
+    color: #60a5fa;
+}
+
+body.dark-mode .calendar-task {
+    background: #1e3a5f;
+    color: #bfdbfe;
+}
+
+body.dark-mode .calendar-task.done {
+    background: #14532d;
+    color: #bbf7d0;
+}
+
+body.dark-mode .no-calendar-task {
+    color: #777;
+}
