@@ -1340,3 +1340,31 @@ body.dark-mode .calendar-task.done {
 body.dark-mode .no-calendar-task {
     color: #777;
 }
+/* Professional Active Calendar View Buttons */
+
+.calendar-view-switch button {
+    transition: all 0.25s ease;
+}
+
+.calendar-view-switch button.active {
+    background: var(--accent-color, #2563eb);
+    color: #ffffff;
+    border-color: var(--accent-color, #2563eb);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    transform: translateY(-2px);
+}
+
+.calendar-view-switch button:not(.active):hover {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+body.dark-mode .calendar-view-switch button.active {
+    background: var(--accent-color, #2563eb);
+    color: #ffffff;
+}
+
+body.dark-mode .calendar-view-switch button:not(.active):hover {
+    background: #333333;
+    color: #ffffff;
+}
